@@ -1,0 +1,16 @@
+PODS:
+  - Nimble (2.0.0-rc.2)
+  - Quick (0.5.1)
+  - SwiftyUserDefaults (1.3.0)
+
+DEPENDENCIES:
+  - Nimble (~> 2.0.0-rc.2)
+  - Quick (~> 0.5.1)
+  - SwiftyUserDefaults
+
+SPEC CHECKSUMS:
+  Nimble: e3cf5e73a491daf21c2bc88783dbfc55ce8b8e02
+  Quick: 7426537a99e75076d6930c5b6da58006e4a9f38a
+  SwiftyUserDefaults: 507da0dcabec653f76ecab845635a6d220c1484a
+
+COCOAPODS: 0.38.2
