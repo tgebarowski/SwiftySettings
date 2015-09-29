@@ -67,15 +67,8 @@ class SettingsCell : UITableViewCell {
             // Icon UIImageView - Constraints
             contentView.addConstraints(
                 // Height Constraint,
-                [NSLayoutConstraint(item: contentView,
-                    attribute: .Height,
-                    relatedBy: .Equal,
-                    toItem: nil,
-                    attribute: .NotAnAttribute,
-                    multiplier: 1.0,
-                    constant: height),
                 // Vertical Constraint
-                NSLayoutConstraint(item: iconView,
+                [NSLayoutConstraint(item: iconView,
                                     attribute: .CenterY,
                                     relatedBy: .Equal,
                                     toItem: contentView,
@@ -114,6 +107,18 @@ class SettingsCell : UITableViewCell {
                 ])
 
             contentView.addConstraint(leftTitleConstraint)
+            let heightConstraint = NSLayoutConstraint(item: contentView,
+                attribute: .Height,
+                relatedBy: .Equal,
+                toItem: nil,
+                attribute: .NotAnAttribute,
+                multiplier: 1.0,
+                constant: height)
+
+            heightConstraint.priority = 999
+            contentView.addConstraint(heightConstraint)
+
+
             didSetupConstraints = true
         }
 
