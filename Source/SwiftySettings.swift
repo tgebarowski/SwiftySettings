@@ -183,8 +183,8 @@ public class OptionsButton : TitledNode, OptionsContainerType {
 public class Screen : TitledNode {
     public var sections: [Section] = []
 
-    public init(title: String, sectionsClosure: (() -> [Section])? = nil) {
-        super.init(title: title)
+    public init(title: String, icon: UIImage? = nil, sectionsClosure: (() -> [Section])? = nil) {
+        super.init(title: title, icon: icon)
 
         if let closure = sectionsClosure {
             sections = closure()
