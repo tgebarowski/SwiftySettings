@@ -106,7 +106,6 @@ class SettingsCell : UITableViewCell {
                     leftTitleConstraint
                 ])
 
-            contentView.addConstraint(leftTitleConstraint)
             let heightConstraint = NSLayoutConstraint(item: contentView,
                 attribute: .Height,
                 relatedBy: .Equal,
