@@ -353,16 +353,10 @@ public class SwiftySettings {
 }
 
 private extension SwiftySettings {
-    
+
     func updateStorageInNodes() {
         for section in main.sections {
             section.setStorage(storage)
         }
-
     }
 }
-
-
-
-
-
