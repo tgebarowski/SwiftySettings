@@ -35,6 +35,7 @@
 		F1ED23891B78F38700054FFB /* Assets.xcassets in Sources */ = {isa = PBXBuildFile; fileRef = F18627471B74F789004E5529 /* Assets.xcassets */; };
 		F1ED238B1B78F38700054FFB /* ExampleSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F186274E1B74F789004E5529 /* ExampleSettingsController.swift */; };
 		F1FBF7541BD65A4E00FCD4C3 /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FBF7521BD658C700FCD4C3 /* TextFieldCell.swift */; };
+		F1FBF7561BD68C1700FCD4C3 /* TextFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FBF7551BD68C1700FCD4C3 /* TextFieldTests.swift */; settings = {ASSET_TAGS = (); }; };
 		F540BCACCC0D7D52A9EEBC90 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8922874E6C9B8A34A103BD6D /* Pods_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -106,6 +107,7 @@
 		F1E045751B78F71200819DCD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Source/Info.plist; sourceTree = "<group>"; };
 		F1ED23731B78F36100054FFB /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1FBF7521BD658C700FCD4C3 /* TextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextFieldCell.swift; path = Source/UI/TextFieldCell.swift; sourceTree = "<group>"; };
+		F1FBF7551BD68C1700FCD4C3 /* TextFieldTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTests.swift; sourceTree = "<group>"; };
 		FB06D237EBDD459EDC512AEC /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +165,7 @@
 		F13BBBED1B8B14680077571E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				F1FBF7551BD68C1700FCD4C3 /* TextFieldTests.swift */,
 				F1786DF71B8E57CB00FDE3CD /* SharedBehaviors.swift */,
 				F14A3A2D1B8E090500CDC3B3 /* StorageStub.swift */,
 				F14A3A2B1B8E078A00CDC3B3 /* SwiftySettingsTests.swift */,
@@ -497,6 +500,7 @@
 			files = (
 				F1786DF61B8E568000FDE3CD /* SwitchTests.swift in Sources */,
 				F14A3A2C1B8E078A00CDC3B3 /* SwiftySettingsTests.swift in Sources */,
+				F1FBF7561BD68C1700FCD4C3 /* TextFieldTests.swift in Sources */,
 				F1786DF81B8E57CB00FDE3CD /* SharedBehaviors.swift in Sources */,
 				F13BBBF71B8B16080077571E /* OptionsTests.swift in Sources */,
 				F1786DF41B8E55CD00FDE3CD /* SliderTests.swift in Sources */,
