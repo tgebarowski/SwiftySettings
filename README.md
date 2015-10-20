@@ -209,6 +209,27 @@ Arguments:
 - _icon_: Optional icon to be set at the left side of the cell
 - _optionsClosure_: Block returning an array of Options from which selection is possible
 
+## TextField
+
+![SwiftySettings TextField](https://github.com/tgebarowski/SwiftySettings/blob/master/doc/SwiftySettings-TextField.png)
+
+TextField represents a UITableViewCell with UITextField for editable content.
+
+```swift
+init(key: String,
+     title: String,
+     secureTextEntry: Bool = false,
+     defaultValue: String = "",
+     valueChangedClosure: ValueChanged? = nil)
+```
+
+Arguments:
+
+- _key_: Storage key used to load and save currently selected Option
+- _title_: Title for the OptionsButton cell
+- _secureTextEntry_: Optional flag indicating if TextField has secured content (i.e. password)
+- _valueChangedClosure_: Optional closure invoked when value is changed
+
 ## Screen
 
 When added to a Section, Screen object will be mapped to UITableViewCell with UILabel set to Screen title.
