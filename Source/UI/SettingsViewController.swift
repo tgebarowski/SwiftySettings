@@ -128,6 +128,12 @@ extension SettingsViewController {
             cell.appearance = appearance
             cell.load(item)
             return cell
+        case let item as TextField:
+            let cell = tableView.dequeueReusableCell(TextFieldCell.self, type: .Cell)
+            cell.appearance = appearance
+            cell.textFieldDelegate = self
+            cell.load(item)
+            return cell
         default:
             return UITableViewCell()
         }
@@ -281,6 +287,7 @@ private extension SettingsViewController {
         tableView.registerClass(OptionCell.self, type: .Cell)
         tableView.registerClass(OptionsButtonCell.self, type: .Cell)
         tableView.registerClass(SettingsCell.self, type: .Cell)
+        tableView.registerClass(TextFieldCell.self, type: .Cell)
         tableView.registerClass(SectionHeaderFooter.self, type: .Header)
         tableView.registerClass(SectionHeaderFooter.self, type: .Footer)
     }
