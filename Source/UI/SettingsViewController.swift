@@ -54,6 +54,8 @@ class SettingsViewController : UITableViewController {
 
     var sections: [Section] = []
     var appearance: Appearance
+    var observerTokens: [NSObjectProtocol] = []
+    var editingIndexPath: NSIndexPath? = nil
 
     var shouldDecorateWithRoundCorners: Bool {
 
@@ -72,6 +74,10 @@ class SettingsViewController : UITableViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    deinit {
+        observerTokens.removeAll()
+    }
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -79,6 +85,7 @@ class SettingsViewController : UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        setupKeyboardHandling()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -260,6 +267,55 @@ extension SettingsViewController {
                 settingsCell.inset = 20
             }
         }
+    }
+}
+
+// MARK: Keyboard handling
+
+extension SettingsViewController : UITextFieldDelegate {
+
+    func setupKeyboardHandling() {
+
+        let nc = NSNotificationCenter.defaultCenter()
+
+        observerTokens.append(nc.addObserverForName(UIKeyboardWillShowNotification, object: nil,
+            queue: NSOperationQueue.mainQueue()) { [weak self] note in
+
+                guard let userInfo = note.userInfo as? [String: AnyObject],
+                    let keyboardRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue()
+                else {
+                        fatalError("Could not extract keyboard CGRect")
+                }
+                var contentInsets = UIEdgeInsets(top: 0.0, left: 0.0,
+                    bottom: keyboardRect.size.height, right: 0.0)
+
+                if (UIInterfaceOrientationIsPortrait(UIApplication.sharedApplication().statusBarOrientation)) {
+                    contentInsets = UIEdgeInsetsMake(0.0, 0.0, (keyboardRect.size.height), 0.0);
+                }
+                self?.tableView.contentInset = contentInsets;
+                self?.tableView.scrollIndicatorInsets = contentInsets;
+
+                if let scrollToIndexPath = self?.editingIndexPath {
+                    self?.tableView.scrollToRowAtIndexPath(scrollToIndexPath,
+                        atScrollPosition: .Middle,
+                        animated:false)
+                }
+            })
+        observerTokens.append(nc.addObserverForName(UIKeyboardWillHideNotification, object: nil,
+            queue: NSOperationQueue.mainQueue()) { [weak self] note in
+                self?.tableView.contentInset = UIEdgeInsetsZero;
+                self?.tableView.scrollIndicatorInsets = UIEdgeInsetsZero;
+            })
+    }
+
+    func textFieldDidBeginEditing(textField: UITextField) {
+        let point = self.tableView.convertPoint(textField.bounds.origin, fromView:textField)
+        self.editingIndexPath = self.tableView.indexPathForRowAtPoint(point)
+    }
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 
