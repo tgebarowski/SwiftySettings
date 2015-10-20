@@ -36,9 +36,9 @@ class ValueChangedConfiguration : QuickConfiguration {
         sharedExamples("value change closure") { (sharedExampleContext: SharedExampleContext) in
             it("triggers when value changes") {
 
-                let element = sharedExampleContext()["element"]
-                let newValue = sharedExampleContext()["newValue"]
-                let returnedKey = sharedExampleContext()["key"]
+                let element = sharedExampleContext()["element"] as! Option
+                let newValue = sharedExampleContext()["newValue"] as! Int
+                let returnedKey = sharedExampleContext()["key"] as! String
 
                 waitUntil(action: { done in
                     element.valueChanged = {
@@ -47,7 +47,7 @@ class ValueChangedConfiguration : QuickConfiguration {
                         expect(key).to(equal(returnedKey))
                         done()
                     }
-                    element.value = switchNewValue
+                    element.value = newValue
                 })
             }
         }
