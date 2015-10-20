@@ -295,6 +295,31 @@ public class Slider : Item<Float> {
     }
 }
 
+public class TextField : Item<String> {
+
+    let secureTextEntry: Bool
+
+    public init(key: String, title: String, secureTextEntry: Bool = false,
+                defaultValue: String = "",
+                valueChangedClosure: ValueChanged? = nil)
+    {
+        self.secureTextEntry = secureTextEntry
+
+        super.init(key: key, title: title, defaultValue: defaultValue, icon: nil,
+                   valueChangedClosure: valueChangedClosure)
+    }
+
+    public override var value: String {
+        get {
+            return (storage?[key] as String?) ?? defaultValue
+        }
+        set {
+            storage?[key] = newValue
+            valueChanged?(key: key, value: newValue)
+        }
+    }
+}
+
 // MARK: - SwiftySettings
 
 public class SwiftySettings {
