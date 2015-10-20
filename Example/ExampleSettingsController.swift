@@ -114,8 +114,10 @@ class ExampleSettingsController: SwiftySettingsViewController {
                 [Option(title: "Armed", optionId: 1),
                  Option(title: "Only ground floor", optionId: 2),
                  Option(title: "Disarmed", optionId: 3)]
-            }
-            ]
+            },
+            Section(title: "Administrator") {
+                [TextField(key: "password", title: "Password", secureTextEntry: true)]
+            }]
         }
     }
 
