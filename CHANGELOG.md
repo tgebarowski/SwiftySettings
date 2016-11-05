@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.0.0](https://github.com/tgebarowski/SwiftySettings/releases/tag/1.0.0)
+Released on 05.11.2016
+
+### Features:
+* Swift 3 compatibility
+* Xcode 8.1 compatiblity
+* Tested on iOS 10
+
 ## [0.0.3](https://github.com/tgebarowski/SwiftySettings/releases/tag/0.0.3)
 Released on 20.10.2015
 
