@@ -40,10 +40,10 @@ public protocol SettingsStorageType {
 
 // MARK: - Base
 
-public class TitledNode {
-    public let title: String
-    public let icon: UIImage?
-    public var storage: SettingsStorageType?
+open class TitledNode {
+    open let title: String
+    open let icon: UIImage?
+    open var storage: SettingsStorageType?
 
     public init (title: String, icon: UIImage? = nil) {
         self.title = title
@@ -51,15 +51,15 @@ public class TitledNode {
     }
 }
 
-public class Item<T> : TitledNode
+open class Item<T> : TitledNode
 {
-    public let key: String
-    public let defaultValue: T
+    open let key: String
+    open let defaultValue: T
 
-    public var value: T
+    open var value: T
 
-    public typealias ValueChanged = (key: String, value: T) -> Void
-    public var valueChanged: ValueChanged?
+    public typealias ValueChanged = (_ key: String, _ value: T) -> Void
+    open var valueChanged: ValueChanged?
 
     public init (key: String, title: String, defaultValue: T, icon: UIImage?,
                  valueChangedClosure: ValueChanged?)
@@ -74,10 +74,10 @@ public class Item<T> : TitledNode
 
 // MARK: - Sections
 
-public class Section : TitledNode {
+open class Section : TitledNode {
 
-    public var items: [TitledNode] = []
-    public var footer: String?
+    open var items: [TitledNode] = []
+    open var footer: String?
 
     public init(title: String, footer: String? = nil,
                 nodesClosure: (() -> [TitledNode])? = nil) {
@@ -90,12 +90,12 @@ public class Section : TitledNode {
         }
     }
 
-    public func with(item: TitledNode) -> Section {
+    @discardableResult open func with(_ item: TitledNode) -> Section {
         items.append(item)
         return self
     }
 
-    private func setStorage(storage: SettingsStorageType) {
+    fileprivate func setStorage(_ storage: SettingsStorageType) {
         for item in items {
             item.storage = storage
             if let screen = item as? Screen {
@@ -113,7 +113,7 @@ protocol OptionsContainerType: class {
     }
 }
 
-public class OptionsSection : Section, OptionsContainerType {
+open class OptionsSection : Section, OptionsContainerType {
 
     let key: String
 
@@ -132,7 +132,7 @@ public class OptionsSection : Section, OptionsContainerType {
         }
     }
 
-    public func with(option: Option) -> Section {
+    @discardableResult open func with(_ option: Option) -> Section {
         option.container = self
         items.append(option)
         return self
@@ -141,11 +141,11 @@ public class OptionsSection : Section, OptionsContainerType {
 
 // MARK: - Settings
 
-public class OptionsButton : TitledNode, OptionsContainerType {
+open class OptionsButton : TitledNode, OptionsContainerType {
     var options: [Option] = []
     let key: String
 
-    public var selectedOptionTitle: String {
+    open var selectedOptionTitle: String {
         get {
             return options.filter { $0.selected }.first?.title ?? ""
         }
@@ -166,22 +166,22 @@ public class OptionsButton : TitledNode, OptionsContainerType {
         }
     }
 
-    public func with(option option: Option) -> OptionsButton {
+    @discardableResult open func with(option: Option) -> OptionsButton {
         option.navigateBack = true
         option.container = self
         options.append(option)
         return self
     }
 
-    private func setStorage(storage: SettingsStorageType) {
+    fileprivate func setStorage(_ storage: SettingsStorageType) {
         for option in options {
             option.storage = storage
         }
     }
 }
 
-public class Screen : TitledNode {
-    public var sections: [Section] = []
+open class Screen : TitledNode {
+    open var sections: [Section] = []
 
     public init(title: String, icon: UIImage? = nil, sectionsClosure: (() -> [Section])? = nil) {
         super.init(title: title, icon: icon)
@@ -191,12 +191,12 @@ public class Screen : TitledNode {
         }
     }
 
-    public func include(section section: Section) -> Screen {
+    @discardableResult open func include(section: Section) -> Screen {
         sections.append(section)
         return self
     }
 
-    private func setStorage(storage: SettingsStorageType) {
+    fileprivate func setStorage(_ storage: SettingsStorageType) {
         for section in sections {
             section.storage = storage
             section.setStorage(storage)
@@ -204,7 +204,7 @@ public class Screen : TitledNode {
     }
 }
 
-public class Switch : Item<Bool> {
+open class Switch : Item<Bool> {
     public override init(key: String, title: String, defaultValue: Bool = false,
                         icon: UIImage? = nil,
                         valueChangedClosure: ValueChanged? = nil) {
@@ -212,18 +212,18 @@ public class Switch : Item<Bool> {
                    valueChangedClosure: valueChangedClosure)
     }
 
-    public override var value: Bool {
+    open override var value: Bool {
         get {
             return (storage?[key] as Bool?) ?? defaultValue
         }
         set {
             storage?[key] = newValue
-            valueChanged?(key: key, value: newValue)
+            valueChanged?(key, newValue)
         }
     }
 }
 
-public class Option : Item<Int> {
+open class Option : Item<Int> {
 
     let optionId: Int
     weak var container: OptionsContainerType!
@@ -236,7 +236,7 @@ public class Option : Item<Int> {
         }
         set {
             value = optionId
-            valueChanged?(key: key, value: optionId)
+            valueChanged?(key, optionId)
         }
     }
 
@@ -249,18 +249,18 @@ public class Option : Item<Int> {
                    valueChangedClosure: valueChangedClosure)
     }
 
-    public override var value: Int {
+    open override var value: Int {
         get {
             return (storage?[container.key] as Int?) ?? defaultValue
         }
         set {
             storage?[container.key] = newValue
-            valueChanged?(key: container.key, value: newValue)
+            valueChanged?(container.key, newValue)
         }
     }
 }
 
-public class Slider : Item<Float> {
+open class Slider : Item<Float> {
 
     var minimumValueImage: UIImage?
     var maximumValueImage: UIImage?
@@ -284,18 +284,18 @@ public class Slider : Item<Float> {
                    valueChangedClosure: valueChangedClosure)
     }
 
-    public override var value: Float {
+    open override var value: Float {
         get {
             return (storage?[key] as Float?) ?? defaultValue
         }
         set {
             storage?[key] = newValue
-            valueChanged?(key: key, value: newValue)
+            valueChanged?(key, newValue)
         }
     }
 }
 
-public class TextField : Item<String> {
+open class TextField : Item<String> {
 
     let secureTextEntry: Bool
 
@@ -309,26 +309,26 @@ public class TextField : Item<String> {
                    valueChangedClosure: valueChangedClosure)
     }
 
-    public override var value: String {
+    open override var value: String {
         get {
             return (storage?[key] as String?) ?? defaultValue
         }
         set {
             storage?[key] = newValue
-            valueChanged?(key: key, value: newValue)
+            valueChanged?(key, newValue)
         }
     }
 }
 
 // MARK: - SwiftySettings
 
-public class SwiftySettings {
+open class SwiftySettings {
 
-    public var main: Screen
-    public var storage: SettingsStorageType
+    open var main: Screen
+    open var storage: SettingsStorageType
 
     public init(storage: SettingsStorageType, title: String,
-                sectionsClosure: () -> [Section]) {
+                sectionsClosure: @escaping () -> [Section]) {
         self.storage = storage
         self.main = Screen(title: title, sectionsClosure: sectionsClosure)
 

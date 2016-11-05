@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'SwiftySettings'
-  s.version = '0.0.3'
+  s.version = '1.0.0'
   s.license = 'MIT'
   s.summary = 'Declarative in-app settings stack in Swift'
   s.homepage = 'https://github.com/tgebarowski/SwiftySettings'
