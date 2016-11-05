@@ -51,26 +51,26 @@ class SwitchCell : SettingsCell {
             // Spacing Between Title and Selected UISwitch
             contentView.addConstraint(NSLayoutConstraint(
                 item: textLabel!,
-                attribute: .Right,
-                relatedBy: .Equal,
+                attribute: .right,
+                relatedBy: .equal,
                 toItem: switchView,
-                attribute: .Left,
+                attribute: .left,
                 multiplier: 1.0,
                 constant: -15))
 
             // UISwitch Constraints
             contentView.addConstraint(NSLayoutConstraint(item: contentView,
-                attribute: .CenterY,
-                relatedBy: .Equal,
+                attribute: .centerY,
+                relatedBy: .equal,
                 toItem: switchView,
-                attribute: .CenterY,
+                attribute: .centerY,
                 multiplier: 1.0,
                 constant: 0.0))
             contentView.addConstraint(NSLayoutConstraint(item: contentView,
-                attribute: .Trailing,
-                relatedBy: .Equal,
+                attribute: .trailing,
+                relatedBy: .equal,
                 toItem: switchView,
-                attribute: .Trailing,
+                attribute: .trailing,
                 multiplier: 1.0,
                 constant: 5))
         }
@@ -86,7 +86,7 @@ class SwitchCell : SettingsCell {
 
         configureAppearance()
 
-        switchView.addTarget(self, action: Selector("switchChanged:"), forControlEvents: .ValueChanged)
+        switchView.addTarget(self, action: #selector(SwitchCell.switchChanged(_:)), for: .valueChanged)
     }
 
     override func configureAppearance() {
@@ -95,16 +95,16 @@ class SwitchCell : SettingsCell {
         switchView.onTintColor = appearance?.tintColor
     }
 
-    func load(item: Switch) {
+    func load(_ item: Switch) {
         super.load(item)
         self.item = item
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.switchView.setOn(item.value as Bool, animated: false)
         })
         setNeedsUpdateConstraints()
     }
 
-    func switchChanged(sender: AnyObject) {
-        item.value = switchView.on
+    func switchChanged(_ sender: AnyObject) {
+        item.value = switchView.isOn
     }
 }

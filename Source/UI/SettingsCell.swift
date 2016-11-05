@@ -53,8 +53,8 @@ class SettingsCell : UITableViewCell {
 
     override func updateConstraints() {
         /* Assure that titleLabel and iconView are present and added to contentView */
-        guard let titleLabel = textLabel where textLabel?.superview != nil,
-              let iconView = imageView where imageView?.superview != nil
+        guard let titleLabel = textLabel, textLabel?.superview != nil,
+              let iconView = imageView, imageView?.superview != nil
         else {
             super.updateConstraints()
             return
@@ -69,48 +69,48 @@ class SettingsCell : UITableViewCell {
                 // Height Constraint,
                 // Vertical Constraint
                 [NSLayoutConstraint(item: iconView,
-                                    attribute: .CenterY,
-                                    relatedBy: .Equal,
+                                    attribute: .centerY,
+                                    relatedBy: .equal,
                                     toItem: contentView,
-                                    attribute: .CenterY,
+                                    attribute: .centerY,
                                     multiplier: 1.0,
                                     constant: 0),
                 // Horizontal Constraint
                 NSLayoutConstraint(item: iconView,
-                                   attribute: .Leading,
-                                   relatedBy: .Equal,
+                                   attribute: .leading,
+                                   relatedBy: .equal,
                                    toItem: contentView,
-                                   attribute: .Leading,
+                                   attribute: .leading,
                                    multiplier: 1.0,
                                    constant: spacing)
                 ])
 
             // Title UILabel - Horizontal Constraint
             leftTitleConstraint = NSLayoutConstraint(item: titleLabel,
-                attribute: .Leading,
-                relatedBy: .Equal,
+                attribute: .leading,
+                relatedBy: .equal,
                 toItem: contentView,
-                attribute: .Leading,
+                attribute: .leading,
                 multiplier: 1.0,
                 constant: spacing)
 
             // Title UILabel - Vertical Constraint
             contentView.addConstraints(
                 [NSLayoutConstraint(item: titleLabel,
-                                    attribute: .CenterY,
-                                    relatedBy: .Equal,
+                                    attribute: .centerY,
+                                    relatedBy: .equal,
                                     toItem: contentView,
-                                    attribute: .CenterY,
+                                    attribute: .centerY,
                                     multiplier: 1.0,
                                     constant: 0),
                     leftTitleConstraint
                 ])
 
             let heightConstraint = NSLayoutConstraint(item: contentView,
-                attribute: .Height,
-                relatedBy: .Equal,
+                attribute: .height,
+                relatedBy: .equal,
                 toItem: nil,
-                attribute: .NotAnAttribute,
+                attribute: .notAnAttribute,
                 multiplier: 1.0,
                 constant: height)
 
@@ -142,14 +142,14 @@ class SettingsCell : UITableViewCell {
 
     }
 
-    func load(item: TitledNode) {
+    func load(_ item: TitledNode) {
 
         configureAppearance()
 
         textLabel?.text = item.title
 
         if (item as? Screen != nil) {
-            accessoryType = .DisclosureIndicator;
+            accessoryType = .disclosureIndicator;
         }
         if let image = item.icon {
             imageView?.image = image

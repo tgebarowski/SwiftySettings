@@ -33,7 +33,7 @@ protocol Reusable {
 extension Reusable {
     static var reuseIdentifier: String {
         let mirror = Mirror(reflecting: self)
-        return String(mirror.subjectType)
+        return String(describing: mirror.subjectType)
     }
 }
 
@@ -43,39 +43,39 @@ extension UITableViewHeaderFooterView: Reusable {}
 
 extension UITableView {
 
-    enum Type {
-        case Cell
-        case Header
-        case Footer
+    enum CellType {
+        case cell
+        case header
+        case footer
     }
 
-    func registerClass<T: UIView where T: Reusable>(aClass: T.Type, type: Type) {
+    func registerClass<T: UIView>(_ aClass: T.Type, type: CellType) where T: Reusable {
         switch (type) {
-        case .Cell:
-            registerClass(aClass, forCellReuseIdentifier: T.reuseIdentifier)
-        case .Header: fallthrough
-        case .Footer:
-            registerClass(aClass, forHeaderFooterViewReuseIdentifier: T.reuseIdentifier)
+        case .cell:
+            register(aClass, forCellReuseIdentifier: T.reuseIdentifier)
+        case .header: fallthrough
+        case .footer:
+            register(aClass, forHeaderFooterViewReuseIdentifier: T.reuseIdentifier)
         }
     }
 
-    func registerNib<T: UIView where T: Reusable>(aNib: UINib, aClass: T.Type, type: Type) {
+    func registerNib<T: UIView>(_ aNib: UINib, aClass: T.Type, type: CellType) where T: Reusable {
         switch (type) {
-        case .Cell:
-            registerNib(aNib, forCellReuseIdentifier: T.reuseIdentifier)
-        case .Header: fallthrough
-        case .Footer:
-            registerNib(aNib, forHeaderFooterViewReuseIdentifier: T.reuseIdentifier)
+        case .cell:
+            register(aNib, forCellReuseIdentifier: T.reuseIdentifier)
+        case .header: fallthrough
+        case .footer:
+            register(aNib, forHeaderFooterViewReuseIdentifier: T.reuseIdentifier)
         }
     }
 
-    func dequeueReusableCell<T: UIView where T: Reusable>(aClass: T.Type, type: Type) -> T {
+    func dequeueReusableCell<T: UIView>(_ aClass: T.Type, type: CellType) -> T where T: Reusable {
         switch (type) {
-        case .Cell:
-            return dequeueReusableCellWithIdentifier(T.reuseIdentifier) as! T
-        case .Header: fallthrough
-        case .Footer:
-            return dequeueReusableHeaderFooterViewWithIdentifier(T.reuseIdentifier) as! T
+        case .cell:
+            return self.dequeueReusableCell(withIdentifier: T.reuseIdentifier) as! T
+        case .header: fallthrough
+        case .footer:
+            return dequeueReusableHeaderFooterView(withIdentifier: T.reuseIdentifier) as! T
 
         }
 

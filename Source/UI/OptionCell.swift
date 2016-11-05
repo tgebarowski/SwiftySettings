@@ -37,12 +37,12 @@ class OptionCell : SettingsCell {
         accessoryView?.backgroundColor = appearance?.cellBackgroundColor
     }
 
-    func load(item: Option) {
+    func load(_ item: Option) {
 
         configureAppearance()
 
         textLabel?.text = item.title
-        accessoryType = item.selected ? .Checkmark : .None;
+        accessoryType = item.selected ? .checkmark : .none;
 
         if let image = item.icon {
             self.imageView?.image = image

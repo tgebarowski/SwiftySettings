@@ -32,8 +32,8 @@ import Nimble
 
 class ValueChangedConfiguration : QuickConfiguration {
 
-    override class func configure(configuration: Configuration) {
-        sharedExamples("value change closure") { (sharedExampleContext: SharedExampleContext) in
+    override class func configure(_ configuration: Configuration) {
+        sharedExamples("value change closure") { (sharedExampleContext: @escaping SharedExampleContext) in
             it("triggers when value changes") {
 
                 let element = sharedExampleContext()["element"] as! Option
@@ -87,30 +87,6 @@ class Options: QuickSpec {
                 for option in options! {
                     expect(option.container.key).to(equal(optionsSection!.key))
                 }
-            }
-
-            it("should trigger ValueChanged when value changes") {
-
-                itBehavesLike("value change closure") {
-                    ["element" : Switch(key: "keyX", title: "Title 1"),
-                     "newValue" : true ,
-                     "key" : "keyX"]
-                }
-
-                /*
-                let switchNewValue = true
-                let switchKey = "key1"
-
-                waitUntil(action: { done in
-                    let s = Switch(key: switchKey, title: "Title 1", valueChangedClosure: {
-                        (key, value) -> Void in
-                        expect(value).to(equal(switchNewValue))
-                        expect(key).to(equal(switchKey))
-                        done()
-                    })
-                    s.value = switchNewValue
-                })
-                */
             }
         }
     }

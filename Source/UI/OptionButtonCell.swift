@@ -51,26 +51,26 @@ class OptionsButtonCell : SettingsCell {
             contentView.addConstraints([
                 // Spacing Between Title and Selected UILabel
                 NSLayoutConstraint(item: selectedOptionLabel,
-                                   attribute: .Left,
-                                   relatedBy: .GreaterThanOrEqual,
+                                   attribute: .left,
+                                   relatedBy: .greaterThanOrEqual,
                                    toItem: textLabel!,
-                                   attribute: .Right,
+                                   attribute: .right,
                                    multiplier: 1.0,
                                    constant: 15),
                 // Selected Option UILabel - Horizontal Constraints
                 NSLayoutConstraint(item: contentView,
-                                    attribute: .Trailing,
-                                    relatedBy: .Equal,
+                                    attribute: .trailing,
+                                    relatedBy: .equal,
                                     toItem: selectedOptionLabel,
-                                    attribute: .Trailing,
+                                    attribute: .trailing,
                                     multiplier: 1.0,
                                     constant: 5),
                 // Selected Option UILabel - Vertical Constraints
                 NSLayoutConstraint(item: contentView,
-                                   attribute: .CenterY,
-                                   relatedBy: .Equal,
+                                   attribute: .centerY,
+                                   relatedBy: .equal,
                                    toItem: selectedOptionLabel,
-                                   attribute: .CenterY,
+                                   attribute: .centerY,
                                    multiplier: 1.0,
                                    constant: 0)
                 ])
@@ -82,9 +82,9 @@ class OptionsButtonCell : SettingsCell {
         super.setupViews()
 
         textLabel?.setContentHuggingPriority(UILayoutPriorityDefaultHigh,
-            forAxis: .Horizontal)
+            for: .horizontal)
         selectedOptionLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultHigh,
-            forAxis: .Horizontal)
+            for: .horizontal)
 
         contentView.addSubview(selectedOptionLabel)
     }
@@ -97,10 +97,10 @@ class OptionsButtonCell : SettingsCell {
         accessoryView?.backgroundColor = appearance?.cellBackgroundColor
     }
 
-    func load(item: OptionsButton) {
+    func load(_ item: OptionsButton) {
         self.textLabel?.text = item.title
         self.selectedOptionLabel.text = item.selectedOptionTitle
-        self.accessoryType = .DisclosureIndicator
+        self.accessoryType = .disclosureIndicator
 
         if let image = item.icon {
             self.imageView?.image = image

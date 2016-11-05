@@ -55,55 +55,55 @@ class TextFieldCell : SettingsCell {
             // Title UILabel
             contentView.addConstraints(
                 [NSLayoutConstraint(item: titleLabel,
-                                    attribute: .Leading,
-                                    relatedBy: .Equal,
+                                    attribute: .leading,
+                                    relatedBy: .equal,
                                     toItem: contentView,
-                                    attribute: .Leading,
+                                    attribute: .leading,
                                     multiplier: 1.0,
                                     constant: 10),
                  NSLayoutConstraint(item: titleLabel,
-                                    attribute: .Top,
-                                    relatedBy: .Equal,
+                                    attribute: .top,
+                                    relatedBy: .equal,
                                     toItem: contentView,
-                                    attribute: .Top,
+                                    attribute: .top,
                                     multiplier: 1.0,
                                     constant: 5),
                 ])
             // UITextField
             contentView.addConstraints(
                 [NSLayoutConstraint(item: textField,
-                                    attribute: .Width,
-                                    relatedBy: .Equal,
+                                    attribute: .width,
+                                    relatedBy: .equal,
                                     toItem: contentView,
-                                    attribute: .Width,
+                                    attribute: .width,
                                     multiplier: 0.9,
                                     constant: 0),
                  NSLayoutConstraint(item: contentView,
-                                    attribute: .CenterX,
-                                    relatedBy: .Equal,
+                                    attribute: .centerX,
+                                    relatedBy: .equal,
                                     toItem: textField,
-                                    attribute: .CenterX,
+                                    attribute: .centerX,
                                     multiplier: 1.0,
                                     constant: 0),
                  NSLayoutConstraint(item: titleLabel,
-                                    attribute: .Bottom,
-                                    relatedBy: .Equal,
+                                    attribute: .bottom,
+                                    relatedBy: .equal,
                                     toItem: textField,
-                                    attribute: .Top,
+                                    attribute: .top,
                                     multiplier: 1.0,
                                     constant: -10),
                  NSLayoutConstraint(item: contentView,
-                                    attribute: .Bottom,
-                                    relatedBy: .Equal,
+                                    attribute: .bottom,
+                                    relatedBy: .equal,
                                     toItem: textField,
-                                    attribute: .Bottom,
+                                    attribute: .bottom,
                                     multiplier: 1.0,
                                     constant: 15),
                  NSLayoutConstraint(item: textField,
-                                    attribute: .Height,
-                                    relatedBy: .Equal,
+                                    attribute: .height,
+                                    relatedBy: .equal,
                                     toItem: nil,
-                                    attribute: .NotAnAttribute,
+                                    attribute: .notAnAttribute,
                                     multiplier: 1.0,
                                     constant: 30)])
 
@@ -121,31 +121,31 @@ class TextFieldCell : SettingsCell {
         textLabel?.removeFromSuperview()
         imageView?.removeFromSuperview()
 
-        textField.addTarget(self, action: Selector("textInputChanged:"),
-                            forControlEvents: .EditingChanged)
+        textField.addTarget(self, action: #selector(TextFieldCell.textInputChanged(_:)),
+                            for: .editingChanged)
     }
 
     override func configureAppearance() {
         super.configureAppearance()
 
         textField.tintColor = appearance?.tintColor
-        textField.borderStyle = .RoundedRect
+        textField.borderStyle = .roundedRect
         titleLabel.textColor = appearance?.cellTextColor
     }
 
-    func load(item: TextField) {
+    func load(_ item: TextField) {
         self.item = item
 
         self.titleLabel.text = item.title
         self.textField.text = item.value
-        self.textField.secureTextEntry = item.secureTextEntry
+        self.textField.isSecureTextEntry = item.secureTextEntry
         self.textField.delegate = textFieldDelegate
 
         self.configureAppearance()
         self.setNeedsUpdateConstraints()
     }
 
-    func textInputChanged(sender: AnyObject) {
+    func textInputChanged(_ sender: AnyObject) {
         if let text = textField.text {
             item.value = text
         }

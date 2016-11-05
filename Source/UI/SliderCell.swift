@@ -56,55 +56,55 @@ class SliderCell : SettingsCell {
             // Title UILabel
             contentView.addConstraints(
                 [NSLayoutConstraint(item: titleLabel,
-                                    attribute: .Leading,
-                                    relatedBy: .Equal,
+                                    attribute: .leading,
+                                    relatedBy: .equal,
                                     toItem: contentView,
-                                    attribute: .Leading,
+                                    attribute: .leading,
                                     multiplier: 1.0,
                                     constant: 10),
                  NSLayoutConstraint(item: titleLabel,
-                                    attribute: .Top,
-                                    relatedBy: .Equal,
+                                    attribute: .top,
+                                    relatedBy: .equal,
                                     toItem: contentView,
-                                    attribute: .Top,
+                                    attribute: .top,
                                     multiplier: 1.0,
                                     constant: 5),
                  NSLayoutConstraint(item: titleLabel,
-                                    attribute: .Bottom,
-                                    relatedBy: .Equal,
+                                    attribute: .bottom,
+                                    relatedBy: .equal,
                                     toItem: contentView,
-                                    attribute: .Bottom,
+                                    attribute: .bottom,
                                     multiplier: 1.0,
                                     constant: -50),
                 ])
             // UISlider
             contentView.addConstraints(
                 [NSLayoutConstraint(item: sliderView,
-                                    attribute: .Width,
-                                    relatedBy: .Equal,
+                                    attribute: .width,
+                                    relatedBy: .equal,
                                     toItem: contentView,
-                                    attribute: .Width,
+                                    attribute: .width,
                                     multiplier: 0.9,
                                     constant: 0),
                  NSLayoutConstraint(item: contentView,
-                                    attribute: .CenterX,
-                                    relatedBy: .Equal,
+                                    attribute: .centerX,
+                                    relatedBy: .equal,
                                     toItem: sliderView,
-                                    attribute: .CenterX,
+                                    attribute: .centerX,
                                     multiplier: 1.0,
                                     constant: 0),
                  NSLayoutConstraint(item: titleLabel,
-                                    attribute: .Bottom,
-                                    relatedBy: .Equal,
+                                    attribute: .bottom,
+                                    relatedBy: .equal,
                                     toItem: sliderView,
-                                    attribute: .Top,
+                                    attribute: .top,
                                     multiplier: 1.0,
                                     constant: 5),
                  NSLayoutConstraint(item: sliderView,
-                                    attribute: .Bottom,
-                                    relatedBy: .Equal,
+                                    attribute: .bottom,
+                                    relatedBy: .equal,
                                     toItem: contentView,
-                                    attribute: .Bottom,
+                                    attribute: .bottom,
                                     multiplier: 1.0,
                                     constant: 15)])
 
@@ -112,17 +112,17 @@ class SliderCell : SettingsCell {
 
             contentView.addConstraints(
                 [NSLayoutConstraint(item: contentView,
-                                    attribute: .Trailing,
-                                    relatedBy: .Equal,
+                                    attribute: .trailing,
+                                    relatedBy: .equal,
                                     toItem: valueLabel,
-                                    attribute: .Trailing,
+                                    attribute: .trailing,
                                     multiplier: 1.0,
                                     constant: 5),
                  NSLayoutConstraint(item: valueLabel,
-                                    attribute: .Baseline,
-                                    relatedBy: .Equal,
+                                    attribute: .lastBaseline,
+                                    relatedBy: .equal,
                                     toItem: titleLabel,
-                                    attribute: .Baseline,
+                                    attribute: .lastBaseline,
                                     multiplier: 1.0,
                                     constant: 0)])
 
@@ -141,8 +141,8 @@ class SliderCell : SettingsCell {
         textLabel?.removeFromSuperview()
         imageView?.removeFromSuperview()
 
-        sliderView.addTarget(self, action: Selector("sliderChanged:"),
-                             forControlEvents: .ValueChanged)
+        sliderView.addTarget(self, action: #selector(SliderCell.sliderChanged(_:)),
+                             for: .valueChanged)
     }
 
     override func configureAppearance() {
@@ -153,7 +153,7 @@ class SliderCell : SettingsCell {
         valueLabel.textColor = appearance?.cellTextColor
     }
 
-    func load(item: Slider) {
+    func load(_ item: Slider) {
         self.item = item
 
         if !item.title.isEmpty {
@@ -170,9 +170,9 @@ class SliderCell : SettingsCell {
         self.setNeedsUpdateConstraints()
     }
 
-    func sliderChanged(sender: AnyObject) {
+    func sliderChanged(_ sender: AnyObject) {
         item.value = sliderView.value
-        dispatch_async(dispatch_get_main_queue()) {
+        DispatchQueue.main.async {
             self.valueLabel.text = String(Int(self.item.value))
         }
     }

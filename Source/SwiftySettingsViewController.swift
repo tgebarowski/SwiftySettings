@@ -28,19 +28,19 @@
 import Foundation
 import UIKit
 
-public class SwiftySettingsViewController : UISplitViewController {
+open class SwiftySettingsViewController : UISplitViewController {
 
-    @IBOutlet public weak var defaultEmptyDetailViewController: UIViewController!
-    @IBInspectable public var viewBackgroundColor: UIColor? = UIColor.swiftySettingsDefaultHeaderGray()
-    @IBInspectable public var cellBackgroundColor: UIColor? = UIColor.whiteColor()
-    @IBInspectable public var cellTextColor: UIColor? = UIColor.blackColor()
-    @IBInspectable public var cellSecondaryTextColor: UIColor? = UIColor.darkGrayColor()
-    @IBInspectable public var tintColor: UIColor? = nil
-    @IBInspectable public var separatorColor: UIColor? = UIColor.swiftySettingsDefaultHeaderGray()
-    @IBInspectable public var selectionColor: UIColor? = UIColor.lightGrayColor()
-    @IBInspectable public var forceRoundedCorners: Bool = false
+    @IBOutlet open weak var defaultEmptyDetailViewController: UIViewController!
+    @IBInspectable open var viewBackgroundColor: UIColor? = UIColor.swiftySettingsDefaultHeaderGray()
+    @IBInspectable open var cellBackgroundColor: UIColor? = UIColor.white
+    @IBInspectable open var cellTextColor: UIColor? = UIColor.black
+    @IBInspectable open var cellSecondaryTextColor: UIColor? = UIColor.darkGray
+    @IBInspectable open var tintColor: UIColor? = nil
+    @IBInspectable open var separatorColor: UIColor? = UIColor.swiftySettingsDefaultHeaderGray()
+    @IBInspectable open var selectionColor: UIColor? = UIColor.lightGray
+    @IBInspectable open var forceRoundedCorners: Bool = false
 
-    public var emptyDetailViewController: UIViewController {
+    open var emptyDetailViewController: UIViewController {
         get {
             if defaultEmptyDetailViewController == nil {
                 return UIViewController()
@@ -49,7 +49,7 @@ public class SwiftySettingsViewController : UISplitViewController {
         }
     }
 
-    public var settings: SwiftySettings! {
+    open var settings: SwiftySettings! {
         didSet{
             loadMasterWithSettings(settings)
         }
@@ -61,7 +61,7 @@ public class SwiftySettingsViewController : UISplitViewController {
         initialSetup()
     }
 
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initialSetup()
     }
@@ -70,11 +70,11 @@ public class SwiftySettingsViewController : UISplitViewController {
         super.init(coder: aDecoder)
     }
 
-    public override func awakeFromNib() {
+    open override func awakeFromNib() {
         initialSetup()
     }
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self;
     }
@@ -82,11 +82,11 @@ public class SwiftySettingsViewController : UISplitViewController {
 
 // MARK: - UISplitViewControllerDelegate
 extension SwiftySettingsViewController : UISplitViewControllerDelegate {
-    public func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+    public func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return true
     }
 
-    public func splitViewController(svc: UISplitViewController, shouldHideViewController vc: UIViewController, inOrientation orientation: UIInterfaceOrientation) -> Bool {
+    public func splitViewController(_ svc: UISplitViewController, shouldHide vc: UIViewController, in orientation: UIInterfaceOrientation) -> Bool {
         return false
     }
 }
@@ -103,7 +103,7 @@ private extension SwiftySettingsViewController {
         viewControllers = [masterNC, detailNC]
     }
 
-    func loadMasterWithSettings(settings: SwiftySettings) {
+    func loadMasterWithSettings(_ settings: SwiftySettings) {
         if let masterNC = self.viewControllers.first as? UINavigationController,
            let masterSettings = masterNC.visibleViewController as? SettingsViewController {
                 masterSettings.load(settings.main)
